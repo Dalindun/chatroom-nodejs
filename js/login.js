@@ -1,3 +1,8 @@
+
+//var jsdom = require("jsdom");
+//const { JSDOM } = jsdom;
+//var item = new JSDOM(String);
+//var document = item.window.document;
 //用于存储图片顺序
 var imgArray = ['1', '2', '3', '4', '5']; 
 
@@ -39,19 +44,47 @@ function carouselImg() {
 };
 
 // 添加登录按钮监听事件
-loginButton.addEventListener('click', function () {
+//loginButton.addEventListener('click', databaselink);
+loginButton.addEventListener('click', identify );
+function identify() { 
     if (userName.value === '') {
-        errorMessage.innerHTML = 'Please Type You Name';
-        errorMessage.style.visibility = 'visible';
-    } else if (userName.value.length > 8) {
-        errorMessage.innerHTML = 'Your Name Cannot Over 8 Words';
-        errorMessage.style.visibility = 'visible';
-    } else {
-        window.location.href =
-            encodeURI('index.html?selectpicture=' + document.getElementsByClassName('p3')[0].alt +
-                '&username=' + userName.value);
-    }
-});
+    errorMessage.innerHTML = 'Please Type You Name';
+    errorMessage.style.visibility = 'visible';
+} 
+    else if (userName.value.length > 8) {
+    errorMessage.innerHTML = 'Your Name Cannot Over 8 Words';
+    errorMessage.style.visibility = 'visible';
+} 
+    else {
+    window.location.href =
+        encodeURI('index.html?selectpicture=' + document.getElementsByClassName('p3')[0].alt +
+            '&username=' + userName.value);
+}
+};  
+
+   
+
+/*function databaselink (){
+var connection = mysql.createConnection({     
+    host     : 'localhost',       
+    user     : 'root',              
+    password : 'woaibupt*=#1',       
+    port: '3306',                   
+    database: 'chatroom' 
+}); 
+connection.connect();
+var  addSql = 'INSERT INTO noob(username) VALUES(?)';
+            var  addSqlParams =[userName];
+            connection.query(addSql,addSqlParams,function (err, result) {
+               if(err){
+                      console.log(err.message);
+                       return;
+                        }        
+                       console.log('插入数据succeed');
+                         });
+                         connection.end();
+    
+};*/
 
 // Enter按键绑定登录事件
 document.onkeydown = function (event) {
