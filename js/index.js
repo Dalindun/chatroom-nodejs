@@ -1,4 +1,5 @@
 // 获取url里面的内容
+//window.location.href="file:///D:/chatroom-nodejs-master";
 var url = decodeURI(location.href).split('?')[1].split('&');
 
 // 获取聊天内容框
@@ -9,7 +10,8 @@ var editBox = document.getElementsByClassName('edit-box')[0];
 
 // 获取聊天输入框发送按钮
 var editButton = document.getElementsByClassName('edit-button')[0];
-
+//获取历史记录按钮
+var historyButton =document.getElementsByClassName('history-button')[0];
 // 获取用户名栏
 var userName = document.getElementsByClassName('user-name')[0];
 
@@ -26,7 +28,12 @@ var logOut = document.getElementsByClassName('log-out')[0];
 
 // 发送按钮绑定点击事件
 editButton.addEventListener('click', sendMessage);
-
+editButton.addEventListener("mouseenter" ,editmouse);
+editButton.addEventListener("mouseleave", editmouseeave);
+//历史按钮绑定事件
+historyButton.addEventListener('click', lookfor);
+historyButton.addEventListener("mouseenter" ,mouseEnter);
+historyButton.addEventListener("mouseleave", mouseLeave);
 // 登出按钮绑定点击事件
 logOut.addEventListener('click', closePage);
 
@@ -39,6 +46,22 @@ document.onkeydown = function (event) {
         }
     }
 };
+function editmouseeave() {
+    document.getElementsByClassName('edit-button')[0].style.color = "#79C2EA";
+}
+function editmouse() {
+    document.getElementsByClassName('edit-button')[0].style.color="rgb(121, 211, 234)";
+    
+}
+function mouseEnter() {
+    document.getElementsByClassName('history-button')[0].style.color="red";
+};
+function mouseLeave() {
+    document.getElementsByClassName('history-button')[0].style.color = "#79C2EA";
+};
+function lookfor() {
+    
+}
 
 // 关闭页面
 function closePage() {
