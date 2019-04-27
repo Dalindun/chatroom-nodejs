@@ -4,6 +4,14 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var jsdom = require("jsdom");
+var request = require('request');
+const { JSDOM } = jsdom;
+var item = new JSDOM(String);
+var document = item.window.document;
+//连接数据库
+var mysql=require('mysql');
+//var userName = document.getElementsByClassName('user-name')[0];
 
 // 在线人数统计
 var onlineCount = 0;
@@ -17,6 +25,26 @@ app.get('/login.html', function (request, response) {
 // 当有用户连接进来时
 io.on('connection', function (socket) {
     console.log('a user connected');
+    //console.log(userName);
+    var connection = mysql.createConnection({     
+        host     : 'localhost',       
+        user     : 'root',              
+        password : 'woaibupt*=#1',       
+        port: '3306',                   
+        database: 'chatroom' 
+    }); 
+    connection.connect();
+    var  addSql = 'INSERT INTO noob(username) VALUES(?)';
+                var  addSqlParams =[ document.getElementsByClassName('user-name')[0]];
+                connection.query(addSql,addSqlParams,function (err, result) {
+                   if(err){
+                          console.log(err.message);
+                           return;
+                            }        
+                           console.log('插入数据succeed');
+                             });
+                             connection.end();
+    
 
     // 发送给客户端在线人数
     io.emit('connected', ++onlineCount);
